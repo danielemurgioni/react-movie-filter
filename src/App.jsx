@@ -9,13 +9,44 @@ const arrFilms = [
   { title: 'Pulp Fiction', genre: 'Thriller' },
 ]
 
+//creo un nuovo array con lo spread i cui generi non sono duplicati con l'uso di new Set
+const uniqueGenres = [...new Set(arrFilms.map((item) => item.genre))]
+
+console.log(uniqueGenres)
+
 function App() {
 
   return (
     <>
-      <div>react</div>
+      <header>
+        <h1>REACT FILMS</h1>
+      </header>
+      <hr />
+      <main>
+        <div className='container'>
+          <div>
+            <label><strong>Filtra i film per genere</strong></label>
+            <br />
+            <select name="film" id="film">
+              {uniqueGenres.map((genre, index) => (
+                <option key={index} value={genre}>{genre}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <h2>Array di Film</h2>
+            <ul>
+              {arrFilms.map((item, index) => (
+                <li key={index}>{item.title}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </main >
     </>
   )
+
 }
 
 export default App
