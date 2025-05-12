@@ -19,6 +19,23 @@ function App() {
   const [genre, setGenre] = useState("")
   console.log(genre)
 
+  // definisco la variabile di stato all'array di film
+  const [filterGenre, setFilterGenre] = useState(arrFilms)
+  console.log(filterGenre)
+
+  // utilizzo useEffect e gli do come dipendenza la variabile di stato che uso come value della select
+  useEffect(() => {
+    console.log("Filter Updated")
+
+    // filtro (.filter) l'array di film, confronto se il genere value di select è incluso (.includes) nell'array originale
+    const filterArrFilms = arrFilms.filter((item) => {
+      return item.genre.toLowerCase().includes(genre.toLocaleLowerCase())
+    })
+
+    //cambio lo stato
+    setFilterGenre(filterArrFilms)
+  }, [genre])
+
   return (
     <>
       <header>
@@ -43,8 +60,12 @@ function App() {
             <h2>Array di Film</h2>
             {/* FILM LIST */}
             <ul>
-              {arrFilms.map((item, index) => (
-                <li key={index}>{item.title}</li>
+              {/* sostituisco l'array mostrato a video, con quello che viene filtrato */}
+              {filterGenre.map((item, index) => (
+                <li key={index}>
+                  <div>Titolo: {item.title}</div>
+                  <div>Genere: {item.genre}</div>
+                </li>
               ))}
             </ul>
           </div>
