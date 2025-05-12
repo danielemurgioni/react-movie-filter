@@ -11,10 +11,13 @@ const arrFilms = [
 
 //creo un nuovo array con lo spread i cui generi non sono duplicati con l'uso di new Set
 const uniqueGenres = [...new Set(arrFilms.map((item) => item.genre))]
-
 console.log(uniqueGenres)
 
 function App() {
+
+  // definisco la value della select con la variabile di stato di useState e la cambio lo stato con setGenre utilizzandola insieme ad onChange
+  const [genre, setGenre] = useState("")
+  console.log(genre)
 
   return (
     <>
@@ -27,7 +30,9 @@ function App() {
           <div>
             <label><strong>Filtra i film per genere</strong></label>
             <br />
-            <select name="film" id="film">
+            {/* SELECT */}
+            <select name="selectFilm" id="film-select" value={genre} onChange={(e) => { setGenre(e.target.value) }}>
+              <option value={""}>Nessun Genere Selezionato</option>
               {uniqueGenres.map((genre, index) => (
                 <option key={index} value={genre}>{genre}</option>
               ))}
@@ -36,6 +41,7 @@ function App() {
 
           <div>
             <h2>Array di Film</h2>
+            {/* FILM LIST */}
             <ul>
               {arrFilms.map((item, index) => (
                 <li key={index}>{item.title}</li>
